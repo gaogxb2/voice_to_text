@@ -1,9 +1,12 @@
-# SenseVoice 依赖包
+# SenseVoice 依赖包 - 稳定版配置
+# 使用 PyTorch 2.2.2 + NumPy 1.x（稳定可靠）
+# 如需使用最新版本，请参考 requirements_latest.txt
+
 modelscope>=1.9.0
 funasr>=1.0.0
-torch>=1.13.0
+torch>=1.13.0,<2.3.0  # 稳定版，与 NumPy 1.x 完全兼容
 torchaudio>=0.13.0
-numpy<2.0,>=1.21.0
+numpy>=1.21.0,<2.0  # 使用 1.x 系列（1.26.4 是最新），与 PyTorch 2.2.2 完全兼容
 scipy>=1.7.0
 librosa>=0.9.0
 soundfile>=0.10.0
@@ -13,6 +16,9 @@ gradio>=3.0.0
 
 # 其他工具
 tqdm>=4.64.0
+
+# 打包工具（可选，用于创建可执行文件）
+pyinstaller>=5.0.0
 
 # 注意：numba 和 llvmlite 版本兼容性
 # 如果遇到 llvmlite 编译错误，可以使用预编译版本：

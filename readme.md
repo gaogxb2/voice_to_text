@@ -13,6 +13,7 @@
 - 🌐 **Web 界面** - 友好的 Gradio Web UI
 - 💻 **命令行工具** - 支持命令行批量处理
 - 🚀 **易于部署** - 一键安装脚本，开箱即用
+- 📦 **可执行文件** - 支持打包成 .exe/.app，无需安装 Python
 
 ## 📋 简介
 
@@ -47,9 +48,19 @@ source sensevoice_env/bin/activate  # Linux/Mac
 
 ### 2. 安装依赖
 
+**稳定版配置（推荐）：**
 ```bash
 pip install -r requirements.txt
 ```
+
+**最新版配置（使用 PyTorch 2.3.0+ 和 NumPy 2.0+）：**
+```bash
+pip install -r requirements_latest.txt
+```
+
+> 💡 **选择建议**：
+> - **生产环境/稳定性优先**：使用 `requirements.txt`（PyTorch 2.2.2 + NumPy 1.26.4）
+> - **新项目/追求最新技术**：使用 `requirements_latest.txt`（PyTorch 2.3.0+ + NumPy 2.0+）
 
 如果在中国大陆，建议使用国内镜像源：
 
@@ -62,8 +73,19 @@ pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple/ --tru
 运行下载脚本：
 
 ```bash
+# 基本用法
+python download_model.py
+
+# 如果在中国大陆，使用镜像源加速（推荐）
+python download_model.py --mirror
+
+# 或设置环境变量
+export MODELSCOPE_ENVIRONMENT=cn  # Linux/macOS
+# set MODELSCOPE_ENVIRONMENT=cn    # Windows CMD
 python download_model.py
 ```
+
+> 💡 **镜像源配置**: 如果下载失败，请查看 [配置镜像源.md](配置镜像源.md) 了解详细配置方法。
 
 或者手动下载模型：
 
@@ -93,6 +115,40 @@ python webui.py
 
 然后在浏览器中访问 `http://localhost:7860`
 
+## 📦 打包成可执行文件
+
+为了让非技术用户也能使用，可以将项目打包成可执行文件：
+
+### 快速打包
+
+**macOS/Linux:**
+```bash
+./build.sh
+```
+
+**Windows:**
+```cmd
+build.bat
+```
+
+### 详细说明
+
+查看 [打包说明.md](打包说明.md) 了解详细的打包步骤和选项。
+
+打包后的文件：
+- **Windows**: `dist/SenseVoice.exe`
+- **macOS**: `dist/SenseVoice.app`
+- **Linux**: `dist/SenseVoice`
+
+### 用户使用
+
+打包后的可执行文件可以直接分发给用户：
+1. 双击运行（首次需要网络下载模型）
+2. 自动打开浏览器使用 Web 界面
+3. 无需安装 Python 或任何依赖
+
+详细用户说明请查看 [README_用户使用说明.txt](README_用户使用说明.txt)
+
 ## 项目结构
 
 ```
@@ -101,8 +157,13 @@ voice_to_text/
 ├── requirements.txt       # Python 依赖
 ├── download_model.py      # 模型下载脚本
 ├── example_usage.py       # 使用示例
-├── models/                # 模型文件存储目录（自动创建）
-└── webui.py              # Web 界面（可选）
+├── webui.py              # Web 界面
+├── launcher.py           # 启动器（用于打包）
+├── build.sh / build.bat   # 打包脚本
+├── build.spec            # PyInstaller 配置
+├── 打包说明.md            # 打包详细指南
+├── README_用户使用说明.txt # 最终用户说明
+└── models/               # 模型文件存储目录（自动创建）
 ```
 
 ## 常见问题
