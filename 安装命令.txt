@@ -1,0 +1,129 @@
+# SenseVoice 本地部署安装命令
+
+## 环境要求
+- Python 3.8 或更高版本
+- pip 包管理器
+
+## 安装步骤
+
+### 步骤 1: 安装核心包
+```bash
+pip3 install modelscope funasr torch torchaudio numpy scipy librosa soundfile gradio tqdm
+```
+
+### 步骤 2: 安装预编译的 llvmlite（避免编译错误）
+```bash
+pip3 install llvmlite --only-binary :all:
+```
+
+### 步骤 3: 安装兼容的 numba 版本
+```bash
+pip3 install "numba<0.63"
+```
+
+### 步骤 4: 修复 NumPy 版本兼容性（torch 需要 numpy < 2.0）
+```bash
+pip3 install "numpy<2" requests
+```
+
+### 步骤 5: 安装其他依赖包
+```bash
+pip3 install filelock cffi audioread decorator joblib lazy_loader pooch scikit-learn aiofiles anyio fastapi ffmpy gradio-client groovy httpx huggingface-hub jinja2 pydantic safehttpx starlette typer uvicorn editdistance hydra-core kaldiio oss2 umap-learn
+```
+
+## 一键安装命令（按顺序执行）
+
+```bash
+# 1. 核心包
+pip3 install modelscope funasr torch torchaudio numpy scipy librosa soundfile gradio tqdm
+
+# 2. llvmlite（预编译版本）
+pip3 install llvmlite --only-binary :all:
+
+# 3. numba（兼容版本）
+pip3 install "numba<0.63"
+
+# 4. 修复 numpy 版本
+pip3 install "numpy<2" requests
+
+# 5. 其他依赖
+pip3 install filelock cffi audioread decorator joblib lazy_loader pooch scikit-learn aiofiles anyio fastapi ffmpy gradio-client groovy httpx huggingface-hub jinja2 pydantic safehttpx starlette typer uvicorn editdistance hydra-core kaldiio oss2 umap-learn
+```
+
+## 已安装的主要包及版本
+
+### 核心包
+- modelscope: 1.33.0
+- funasr: 1.2.7
+- torch: 2.2.2
+- torchaudio: 2.2.2
+- gradio: 6.1.0
+- numpy: 1.26.4
+- scipy: 1.15.3
+- librosa: 0.11.0
+- soundfile: 0.13.1
+
+### 重要依赖
+- numba: 0.62.1
+- llvmlite: 0.45.1
+- scikit-learn: 1.7.2
+- fastapi: 0.124.2
+- pydantic: 2.12.5
+
+## 验证安装
+
+运行以下命令验证安装是否成功：
+
+```bash
+python3 -c "import modelscope, funasr, torch, gradio; print('✓ 安装成功！')"
+```
+
+## 注意事项
+
+1. **NumPy 版本**: 必须使用 numpy < 2.0，因为 torch 2.2.2 不兼容 numpy 2.x
+2. **llvmlite**: 使用预编译版本避免编译错误（需要 LLVM 开发库）
+3. **numba**: 使用 < 0.63 版本以兼容 llvmlite 0.45.1
+4. **ffmpeg（可选）**: 如需更好的音频处理，可安装：
+   ```bash
+   brew install ffmpeg  # macOS
+   sudo apt install ffmpeg  # Ubuntu
+   ```
+
+## 使用国内镜像源（可选，加快下载速度）
+
+如果在中国大陆，可以使用清华镜像源：
+
+```bash
+pip3 install -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/ <包名>
+```
+
+## 完整安装脚本
+
+```bash
+#!/bin/bash
+# SenseVoice 一键安装脚本
+
+echo "开始安装 SenseVoice 依赖..."
+
+# 核心包
+pip3 install modelscope funasr torch torchaudio numpy scipy librosa soundfile gradio tqdm
+
+# llvmlite
+pip3 install llvmlite --only-binary :all:
+
+# numba
+pip3 install "numba<0.63"
+
+# 修复 numpy
+pip3 install "numpy<2" requests
+
+# 其他依赖
+pip3 install filelock cffi audioread decorator joblib lazy_loader pooch scikit-learn aiofiles anyio fastapi ffmpy gradio-client groovy httpx huggingface-hub jinja2 pydantic safehttpx starlette typer uvicorn editdistance hydra-core kaldiio oss2 umap-learn
+
+echo "安装完成！"
+python3 -c "import modelscope, funasr, torch, gradio; print('✓ 验证成功！')"
+```
+
+## 安装日期
+2025年1月
+
