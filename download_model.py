@@ -74,14 +74,24 @@ def download_model(model_name="small", cache_dir="./models", use_mirror=False):
         return model_dir
     except Exception as e:
         print(f"\n✗ 下载失败: {str(e)}")
-        print("\n提示:")
-        print("1. 检查网络连接")
-        print("2. 如果在中国大陆，尝试使用 --mirror 参数:")
-        print("   python download_model.py --model small --mirror")
-        print("3. 或设置环境变量:")
-        print("   export MODELSCOPE_ENVIRONMENT=cn")
-        print("   python download_model.py --model small")
-        print("4. 确保有足够的磁盘空间")
+        print("\n" + "="*60)
+        print("下载失败，可以尝试以下方法：")
+        print("="*60)
+        print("\n方法 1: 使用镜像源")
+        print("  python download_model.py --model small --mirror")
+        print("\n方法 2: 设置环境变量")
+        print("  export MODELSCOPE_ENVIRONMENT=cn  # Linux/macOS")
+        print("  set MODELSCOPE_ENVIRONMENT=cn     # Windows")
+        print("  python download_model.py --model small")
+        print("\n方法 3: 手动下载（推荐）")
+        print("  访问网页直接下载:")
+        if model_name == "small":
+            print("  https://www.modelscope.cn/models/iic/SenseVoiceSmall")
+        else:
+            print("  https://www.modelscope.cn/models/iic/SenseVoiceMedium")
+        print("\n  下载后解压到: ./models/iic/SenseVoiceSmall/")
+        print("  详细说明请查看: 手动下载模型.md")
+        print("\n" + "="*60)
         return None
 
 

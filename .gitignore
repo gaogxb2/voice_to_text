@@ -27,13 +27,6 @@ ENV/
 env/
 .venv
 
-# Models
-models/
-*.pth
-*.pt
-*.onnx
-*.bin
-
 # IDE
 .vscode/
 .idea/

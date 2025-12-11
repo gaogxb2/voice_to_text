@@ -170,7 +170,10 @@ voice_to_text/
 
 ### Q: 模型下载失败怎么办？
 
-A: 确保网络连接正常，或使用国内镜像源。也可以手动从 ModelScope 下载模型文件。
+A: 
+1. **使用镜像源**: `python download_model.py --model small --mirror`
+2. **手动下载**: 访问 https://www.modelscope.cn/models/iic/SenseVoiceSmall 直接下载
+3. **详细说明**: 查看 [手动下载模型.md](手动下载模型.md) 和 [配置镜像源.md](配置镜像源.md)
 
 ### Q: 内存不足怎么办？
 
