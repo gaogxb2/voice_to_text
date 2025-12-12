@@ -221,27 +221,51 @@ def create_interface():
             outputs=[realtime_output, realtime_audio_playback]
         )
         
-        # 自动加载默认模型
-        demo.load(
-            fn=load_model,
-            inputs=[model_dir_input, model_selector],
-            outputs=model_status
-        )
+        # 注释掉自动加载模型，避免启动时卡住
+        # 用户可以在界面上手动点击"加载模型"按钮
+        # demo.load(
+        #     fn=load_model,
+        #     inputs=[model_dir_input, model_selector],
+        #     outputs=model_status
+        # )
     
     return demo
 
 
 def main():
     """主函数"""
-    print("启动 SenseVoice Web UI...")
-    print("访问地址: http://localhost:7860")
+    import sys
     
-    demo = create_interface()
-    demo.launch(
-        server_name="0.0.0.0",
-        server_port=7860,
-        share=False
-    )
+    print("=" * 50)
+    print("启动 SenseVoice Web UI...")
+    print("=" * 50)
+    
+    # 离线模式：禁用网络相关功能
+    os.environ["GRADIO_SERVER_NAME"] = "127.0.0.1"
+    # 禁用 Gradio 的某些网络功能
+    os.environ["GRADIO_ANALYTICS_ENABLED"] = "False"
+    
+    try:
+        print("正在创建界面...")
+        demo = create_interface()
+        print("界面创建完成")
+        
+        print("正在启动服务器...")
+        print("访问地址: http://127.0.0.1:7860")
+        print("=" * 50)
+        
+        # 离线模式启动配置（使用最基本的参数）
+        demo.launch(
+            server_name="127.0.0.1",
+            server_port=7860,
+            share=False,
+            inbrowser=False,
+        )
+    except Exception as e:
+        print(f"启动失败: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        sys.exit(1)
 
 
 if __name__ == "__main__":
